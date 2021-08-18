@@ -1,24 +1,34 @@
+function getInput(idName) {
+    const newInput = parseFloat(document.getElementById(idName).value);
+    return newInput;
+}
+
+function getPreviousAmount(idName) {
+    const previousAmount = parseFloat(document.getElementById(idName).innerText);
+    return previousAmount;
+}
+
+function getPreviousTotal() {
+    const previousTotal = parseFloat(document.getElementById('total-amount').innerText);
+    return previousTotal;
+}
+
+
 // diposit button
 document.getElementById('diposit-button').addEventListener('click', function () {
-    const inputDipositAmount = parseFloat(document.getElementById('diposit-input').value);
-    const displayedDipositAmount = parseFloat(document.getElementById('diposit-amount').innerText);
-    document.getElementById('diposit-amount').innerText = inputDipositAmount + displayedDipositAmount;
-    document.getElementById('diposit-input').value = '';
+    document.getElementById('diposit-amount').innerText = getInput('diposit-input') + getPreviousAmount('diposit-amount');
 
-    // update total Amount
-    const displayedTotal = parseFloat(document.getElementById('total-amount').innerText);
-    document.getElementById('total-amount').innerText = inputDipositAmount + displayedTotal;
+    // update total Amount    
+    document.getElementById('total-amount').innerText = getInput('diposit-input') + getPreviousTotal();
+    document.getElementById('diposit-input').value = '';
 });
 
 // withdraw button
 document.getElementById('withdraw-button').addEventListener('click', function () {
-    const inputWithdrawAmount = parseFloat(document.getElementById('withdraw-input').value);
-    const displayedWithdrawAmount = parseFloat(document.getElementById('withdraw-amount').innerText);
-    document.getElementById('withdraw-amount').innerText = inputWithdrawAmount + displayedWithdrawAmount;
-    document.getElementById('withdraw-input').value = '';
+    document.getElementById('withdraw-amount').innerText = getInput('withdraw-input') + getPreviousAmount('withdraw-amount');
 
     // update total Amount
     const displayedTotal = parseFloat(document.getElementById('total-amount').innerText);
-    document.getElementById('total-amount').innerText = displayedTotal - inputWithdrawAmount;
+    document.getElementById('total-amount').innerText = getPreviousTotal() - getInput('withdraw-input');
+    document.getElementById('withdraw-input').value = '';
 });
-
